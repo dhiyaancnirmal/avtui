@@ -1,0 +1,47 @@
+import type { Theme } from '../types/theme';
+
+export const ayudarkTheme: Theme = {
+  name: 'Ayu Dark',
+  colors: {
+    background: '#0f1419',
+    foreground: '#bfbcb4',
+    black: '#0f1419',
+    red: '#ff6e5e',
+    green: '#5ccc96',
+    yellow: '#f5c061',
+    blue: '#57a5e5',
+    magenta: '#bd8fde',
+    cyan: '#5cc0e6',
+    white: '#bfbcb4',
+    brightBlack: '#1d2430',
+    brightRed: '#fda894',
+    brightGreen: '#dbefa6',
+    brightYellow: '#f6df92',
+    brightBlue: '#7cd6cf',
+    brightMagenta: '#e2a1e2',
+    brightCyan: '#73d0d3',
+    brightWhite: '#ffffff',
+    dimBlack: '#0a0d10',
+    dimRed: '#bd5846',
+    dimGreen: '#449970',
+    dimYellow: '#b59048',
+    dimBlue: '#3d7b41',
+    dimMagenta: '#8e6ba6',
+    dimCyan: '#4490ac',
+    dimWhite: '#8b8881',
+  },
+  styles: {
+    background: { background: 'bg' },
+    text: { color: 'fg' },
+    border: { color: 'dimBlack', borderBottom: true },
+    muted: { color: 'dimWhite' },
+    highlight: { color: 'brightWhite' },
+    primary: { color: 'brightCyan' },
+    success: { color: 'green' },
+    error: { color: 'red' },
+    warning: { color: 'yellow' },
+    secondary: { color: 'brightBlue' },
+  },
+};
+
+export default ayudarkTheme;

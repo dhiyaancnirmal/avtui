@@ -7,6 +7,7 @@ import { draculaTheme } from './dracula';
 import { nordTheme } from './nord';
 import { monokaiTheme } from './monokai';
 import { gruvboxTheme } from './gruvbox';
+import { ayudarkTheme } from './ayudark';
 
 export const themes: Record<ThemeId, Theme> = {
   opencode: opencodeTheme,
@@ -15,11 +16,12 @@ export const themes: Record<ThemeId, Theme> = {
   nord: nordTheme,
   monokai: monokaiTheme,
   gruvbox: gruvboxTheme,
+  ayudark: ayudarkTheme,
 };
 
 export const themeList: Theme[] = Object.values(themes);
 
-export const defaultTheme: Theme = opencodeTheme;
+export const defaultTheme: Theme = ayudarkTheme;
 
 export function getTheme(id: ThemeId): Theme {
   return themes[id] || defaultTheme;
@@ -29,4 +31,4 @@ export function getThemeIds(): ThemeId[] {
   return Object.keys(themes) as ThemeId[];
 }
 
-export { opencodeTheme, lightTheme, draculaTheme, nordTheme, monokaiTheme, gruvboxTheme };
+export { opencodeTheme, lightTheme, draculaTheme, nordTheme, monokaiTheme, gruvboxTheme, ayudarkTheme };
