@@ -7,6 +7,8 @@ A beautiful terminal user interface (TUI) wrapper for FFmpeg media conversion. C
    █▀█ ▀▄▀ ░█░ █▄█ █
 ```
 
+<img width="1710" height="1069" alt="Screenshot 2025-12-22 at 5 19 29 PM" src="https://github.com/user-attachments/assets/d1801afc-513a-4c6b-9001-dea26710e01c" />
+
 ## Features
 
 - **Easy Conversion**: Convert videos and audio to any format with a simple interface
