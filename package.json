@@ -1,0 +1,59 @@
+{
+  "name": "avtui",
+  "version": "0.1.0",
+  "description": "A beautiful TUI wrapper for FFmpeg media conversion - convert videos and audio without remembering complex commands",
+  "author": "dhiyaancnirmal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dhiyaancnirmal/avtui"
+  },
+  "homepage": "https://github.com/dhiyaancnirmal/avtui#readme",
+  "bugs": {
+    "url": "https://github.com/dhiyaancnirmal/avtui/issues"
+  },
+  "keywords": [
+    "ffmpeg",
+    "tui",
+    "terminal",
+    "video",
+    "audio",
+    "conversion",
+    "cli",
+    "media",
+    "encoder",
+    "converter",
+    "opentui"
+  ],
+  "type": "module",
+  "bin": {
+    "avtui": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "bun run src/index.tsx",
+    "build": "bun build ./src/index.tsx --outdir ./dist --target bun --minify",
+    "start": "bun run ./dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "format": "biome format --write ."
+  },
+  "dependencies": {
+    "@opentui/core": "^0.1.63",
+    "@opentui/react": "^0.1.60",
+    "react": "^19.0.0",
+    "execa": "^9.5.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/bun": "^1.1.14",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.2",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
