@@ -11,10 +11,12 @@ interface ErrorScreenProps extends ScreenProps {
   onRetry: () => void;
 }
 
-export function ErrorScreen({ onNavigate, onBack, onQuit, error, onRetry }: ErrorScreenProps) {
+export function ErrorScreen({ onNavigate, onBack, error, onRetry, disabled }: ErrorScreenProps) {
   const { theme } = useTheme();
 
   useKeyboard((key) => {
+    if (disabled) return;
+
     switch (key.name) {
       case 'r':
         onRetry();
@@ -23,9 +25,6 @@ export function ErrorScreen({ onNavigate, onBack, onQuit, error, onRetry }: Erro
       case 'b':
       case 'escape':
         onBack();
-        break;
-      case 'q':
-        onQuit();
         break;
     }
   });

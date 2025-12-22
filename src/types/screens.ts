@@ -18,4 +18,5 @@ export interface ScreenProps {
   onNavigate: (screen: ScreenName) => void;
   onBack: () => void;
   onQuit: () => void;
+  disabled?: boolean;
 }

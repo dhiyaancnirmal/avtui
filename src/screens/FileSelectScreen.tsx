@@ -17,18 +17,17 @@ interface FileSelectScreenProps extends ScreenProps {
 export function FileSelectScreen({
   onNavigate,
   onBack,
-  onQuit,
   onFilesSelected,
   initialPath,
+  disabled,
 }: FileSelectScreenProps) {
   const { theme } = useTheme();
   const [multiSelect, setMultiSelect] = useState(false);
 
   useKeyboard((key) => {
+    if (disabled) return;
+
     switch (key.name) {
-      case 'q':
-        onQuit();
-        break;
       case 'm':
         setMultiSelect((prev) => !prev);
         break;
@@ -79,7 +78,7 @@ export function FileSelectScreen({
         <FileBrowser
           onSelect={handleSelect}
           onCancel={onBack}
-          focused={true}
+          focused={!disabled}
           multiSelect={multiSelect}
           mediaOnly={false}
           initialPath={initialPath}
@@ -89,11 +88,10 @@ export function FileSelectScreen({
       <Footer
         bindings={[
           { key: '↑↓', label: 'Navigate' },
-          { key: 'Enter', label: 'Select/Open' },
-          { key: 'Backspace', label: 'Parent' },
-          { key: 'm', label: 'Multi-select' },
-          { key: 'Ctrl+H', label: 'Hidden' },
-          { key: 'Esc', label: 'Back' },
+          { key: '←', label: 'Back' },
+          { key: '→', label: 'Open' },
+          { key: 'Enter', label: 'Select' },
+          { key: 'm', label: 'Multi' },
           { key: 'q', label: 'Quit' },
         ]}
       />

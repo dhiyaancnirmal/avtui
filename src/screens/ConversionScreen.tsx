@@ -23,7 +23,6 @@ interface ConversionScreenProps extends ScreenProps {
 
 export function ConversionScreen({
   onNavigate,
-  onQuit,
   files,
   currentFileIndex,
   status,
@@ -31,6 +30,7 @@ export function ConversionScreen({
   totalDuration,
   command,
   onCancel,
+  disabled,
 }: ConversionScreenProps) {
   const { theme } = useTheme();
 
@@ -38,11 +38,10 @@ export function ConversionScreen({
   const isMultiFile = files.length > 1;
 
   useKeyboard((key) => {
+    if (disabled) return;
+    
     if (key.name === 'escape') {
       onCancel();
-    }
-    if (key.name === 'q' && status !== 'converting') {
-      onQuit();
     }
   });
 

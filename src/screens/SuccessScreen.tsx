@@ -18,9 +18,9 @@ interface SuccessScreenProps extends ScreenProps {
 
 export function SuccessScreen({
   onNavigate,
-  onQuit,
   results,
   onNewConversion,
+  disabled,
 }: SuccessScreenProps) {
   const { theme } = useTheme();
 
@@ -41,6 +41,8 @@ export function SuccessScreen({
   };
 
   useKeyboard((key) => {
+    if (disabled) return;
+
     switch (key.name) {
       case 'n':
         onNewConversion();
@@ -48,10 +50,6 @@ export function SuccessScreen({
         break;
       case 'o':
         openOutputFolder();
-        break;
-      case 'q':
-      case 'escape':
-        onQuit();
         break;
     }
   });

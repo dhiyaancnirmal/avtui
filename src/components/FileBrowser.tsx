@@ -1,7 +1,7 @@
 // File browser component with navigation and multi-select
 
 import { useState, useEffect, useCallback } from 'react';
-import { useKeyboard } from '@opentui/react';
+import { useKeyboard, useTerminalDimensions } from '@opentui/react';
 import { useTheme } from '../hooks/useTheme';
 import { useFileSystem } from '../hooks/useFileSystem';
 import { FileItem } from './FileItem';
@@ -26,6 +26,8 @@ export function FileBrowser({
   initialPath,
 }: FileBrowserProps) {
   const { theme } = useTheme();
+  const { width: termWidth, height: termHeight } = useTerminalDimensions();
+  
   const {
     currentPath,
     files,
@@ -43,7 +45,10 @@ export function FileBrowser({
 
   const [focusIndex, setFocusIndex] = useState(0);
   const [viewportStart, setViewportStart] = useState(0);
-  const viewportHeight = 15; // Number of visible items
+  
+  // Dynamic viewport height based on terminal size
+  // Account for: header (1) + mode line (2) + path header (1) + scroll indicator (1) + footer (1) + padding (2)
+  const viewportHeight = Math.max(10, termHeight - 8);
 
   // Adjust focus index when files change
   useEffect(() => {
@@ -95,6 +100,20 @@ export function FileBrowser({
           setFocusIndex(files.length - 1);
           break;
 
+        // Left arrow = go back (parent directory)
+        case 'left':
+          await navigateUp();
+          setFocusIndex(0);
+          break;
+
+        // Right arrow = enter directory (if focused on a directory)
+        case 'right':
+          if (currentFile?.isDirectory) {
+            await navigateTo(currentFile.path);
+            setFocusIndex(0);
+          }
+          break;
+
         case 'return':
           if (currentFile) {
             if (currentFile.isDirectory) {
@@ -112,11 +131,6 @@ export function FileBrowser({
           if (currentFile && !currentFile.isDirectory && multiSelect) {
             toggleSelection(currentFile.path);
           }
-          break;
-
-        case 'backspace':
-          await navigateUp();
-          setFocusIndex(0);
           break;
 
         case 'escape':
@@ -157,6 +171,7 @@ export function FileBrowser({
       multiSelect,
       selectedFiles,
       showHidden,
+      viewportHeight,
       navigateTo,
       navigateUp,
       toggleSelection,
@@ -195,27 +210,21 @@ export function FileBrowser({
         }}
       >
         <text fg={theme.colors.primary}>
-          <strong>{shortenPath(currentPath, 50)}</strong>
+          <strong>{shortenPath(currentPath, 60)}</strong>
         </text>
         {multiSelect && selectedFiles.size > 0 && (
           <text fg={theme.colors.success}>{selectedFiles.size} selected</text>
         )}
       </box>
 
-      {/* File list */}
+      {/* File list - takes remaining space */}
       <box style={{ width: '100%', flexGrow: 1, flexDirection: 'column' }}>
         {loading ? (
-          <text fg={theme.colors.textMuted}>
-            Loading...
-          </text>
+          <text fg={theme.colors.textMuted}>Loading...</text>
         ) : error ? (
-          <text fg={theme.colors.error}>
-            Error: {error}
-          </text>
+          <text fg={theme.colors.error}>Error: {error}</text>
         ) : files.length === 0 ? (
-          <text fg={theme.colors.textMuted}>
-            No files found
-          </text>
+          <text fg={theme.colors.textMuted}>No files found</text>
         ) : (
           visibleFiles.map((file, index) => {
             const actualIndex = viewportStart + index;
@@ -234,25 +243,24 @@ export function FileBrowser({
       </box>
 
       {/* Scroll indicator */}
-      {files.length > viewportHeight && (
-        <box
-          style={{
-            width: '100%',
-            height: 1,
-            backgroundColor: theme.colors.surface,
-            paddingLeft: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <text fg={theme.colors.textMuted}>
-            {focusIndex + 1}/{files.length}
-          </text>
-          <text fg={theme.colors.textMuted}>
-            {showHidden ? '[H] Hidden: On' : '[H] Hidden: Off'}
-          </text>
-        </box>
-      )}
+      <box
+        style={{
+          width: '100%',
+          height: 1,
+          backgroundColor: theme.colors.surface,
+          paddingLeft: 1,
+          paddingRight: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
+        <text fg={theme.colors.textMuted}>
+          {focusIndex + 1}/{files.length}
+        </text>
+        <text fg={theme.colors.textMuted}>
+          {showHidden ? '[H] Hidden: On' : '[H] Hidden: Off'}
+        </text>
+      </box>
     </box>
   );
 }

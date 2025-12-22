@@ -10,20 +10,16 @@ interface WelcomeScreenProps extends ScreenProps {
   ffmpegVersion?: string;
 }
 
-export function WelcomeScreen({ onNavigate, onQuit, ffmpegVersion }: WelcomeScreenProps) {
+export function WelcomeScreen({ onNavigate, disabled, ffmpegVersion }: WelcomeScreenProps) {
   const { theme } = useTheme();
 
   useKeyboard((key) => {
+    if (disabled) return;
+
     switch (key.name) {
       case 'return':
       case 'space':
         onNavigate('file-select');
-        break;
-      case 'q':
-        onQuit();
-        break;
-      case 't':
-        // Theme selector would be handled by parent
         break;
     }
   });

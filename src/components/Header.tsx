@@ -2,12 +2,17 @@
 
 import { useTheme } from '../hooks/useTheme';
 
+// Bigger, bolder logo - properly aligned
 const LOGO = `
-   ▄▀█ █░█ ▀█▀ █░█ █
-   █▀█ ▀▄▀ ░█░ █▄█ █
-`.trim();
+ ███████╗██╗   ██╗████████╗██╗   ██╗██╗
+ ██╔══██║██║   ██║╚══██╔══╝██║   ██║██║
+ ███████║██║   ██║   ██║   ██║   ██║██║
+ ██╔══██║╚██╗ ██╔╝   ██║   ██║   ██║██║
+ ██║  ██║ ╚████╔╝    ██║   ╚██████╔╝██║
+ ╚═╝  ╚═╝  ╚═══╝     ╚═╝    ╚═════╝ ╚═╝
+`.trimEnd().substring(1);
 
-const LOGO_SMALL = '◆ avtui';
+const LOGO_SMALL = '◆ AVTUI';
 
 interface HeaderProps {
   title?: string;
@@ -28,6 +33,7 @@ export function Header({ title, subtitle, compact = false }: HeaderProps) {
           justifyContent: 'space-between',
           paddingLeft: 1,
           paddingRight: 1,
+          backgroundColor: theme.colors.surface,
         }}
       >
         <text fg={theme.colors.primary}>
@@ -44,17 +50,15 @@ export function Header({ title, subtitle, compact = false }: HeaderProps) {
         width: '100%',
         flexDirection: 'column',
         alignItems: 'center',
-        paddingTop: 1,
+        paddingTop: 2,
         paddingBottom: 1,
       }}
     >
-      <text fg={theme.colors.primary}>
-        <strong>{LOGO}</strong>
-      </text>
+      <text fg={theme.colors.primary}>{LOGO}</text>
       {subtitle && (
-        <text fg={theme.colors.textMuted}>
-          {subtitle}
-        </text>
+        <box style={{ marginTop: 1 }}>
+          <text fg={theme.colors.textMuted}>{subtitle}</text>
+        </box>
       )}
     </box>
   );

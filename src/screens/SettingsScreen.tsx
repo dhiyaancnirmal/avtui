@@ -57,9 +57,9 @@ interface FieldOption {
 export function SettingsScreen({
   onNavigate,
   onBack,
-  onQuit,
   selectedFiles,
   onStartConversion,
+  disabled,
 }: SettingsScreenProps) {
   const { theme } = useTheme();
 
@@ -147,6 +147,8 @@ export function SettingsScreen({
   };
 
   const handleKeyboard = (key: { name: string; shift?: boolean }) => {
+    if (disabled) return;
+
     const currentField = FIELDS[focusedField];
 
     if (expandedField) {
@@ -229,9 +231,6 @@ export function SettingsScreen({
         break;
       case 'escape':
         onBack();
-        break;
-      case 'q':
-        onQuit();
         break;
       case 's':
         // Start conversion

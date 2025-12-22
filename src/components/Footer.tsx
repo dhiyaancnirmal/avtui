@@ -27,19 +27,17 @@ export function Footer({ bindings = defaultBindings }: FooterProps) {
         height: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        gap: 2,
-        border: true,
-        borderColor: theme.colors.border,
-        paddingTop: 0,
+        alignItems: 'center',
+        gap: 3,
+        backgroundColor: theme.colors.surface,
       }}
     >
       {bindings.map((binding, index) => (
-        <box key={index} style={{ flexDirection: 'row', gap: 0 }}>
+        <box key={index} style={{ flexDirection: 'row' }}>
           <text fg={theme.colors.primary}>
             <strong>{binding.key}</strong>
           </text>
           <text fg={theme.colors.textMuted}> {binding.label}</text>
-          {index < bindings.length - 1 && <text fg={theme.colors.border}> │</text>}
         </box>
       ))}
     </box>

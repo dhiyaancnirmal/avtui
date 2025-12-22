@@ -102,12 +102,25 @@ export function App({ ffmpegVersion, initialTheme = 'opencode' }: AppProps) {
     conversion.cancel();
   }, [conversion]);
 
-  // Global keyboard handler for theme selector
+  // Global keyboard handler
   useKeyboard((key) => {
-    if (key.name === 't' && !showThemeSelector && currentScreen === 'welcome') {
+    // Priority 1: Theme Selector
+    if (showThemeSelector) {
+      if (key.name === 'escape') {
+        setShowThemeSelector(false);
+      }
+      return; // Stop processing other keys
+    }
+
+    // Priority 2: Welcome Screen theme toggle
+    if (currentScreen === 'welcome' && key.name === 't') {
       setShowThemeSelector(true);
-    } else if (key.name === 'escape' && showThemeSelector) {
-      setShowThemeSelector(false);
+      return;
+    }
+
+    // Priority 3: Global Quit
+    if (key.name === 'q' && currentScreen !== 'converting') {
+      quit();
     }
   });
 
@@ -116,6 +129,8 @@ export function App({ ffmpegVersion, initialTheme = 'opencode' }: AppProps) {
     onNavigate: navigate,
     onBack: goBack,
     onQuit: quit,
+    // Add a flag to disable local keyboard handlers if theme selector is open
+    disabled: showThemeSelector,
   };
 
   // Render the current screen
