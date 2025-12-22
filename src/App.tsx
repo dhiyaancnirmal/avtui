@@ -24,7 +24,7 @@ interface AppProps {
   initialTheme?: ThemeId;
 }
 
-export function App({ ffmpegVersion, initialTheme = 'opencode' }: AppProps) {
+export function App({ ffmpegVersion, initialTheme = 'ayudark' }: AppProps) {
   // Screen navigation state
   const [currentScreen, setCurrentScreen] = useState<ScreenName>('welcome');
   const [screenHistory, setScreenHistory] = useState<ScreenName[]>([]);

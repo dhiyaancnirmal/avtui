@@ -29,4 +29,4 @@ export interface Theme {
   colors: ThemeColors;
 }
 
-export type ThemeId = 'opencode' | 'light' | 'dracula' | 'nord' | 'monokai' | 'gruvbox';
+export type ThemeId = 'opencode' | 'light' | 'dracula' | 'nord' | 'monokai' | 'gruvbox' | 'ayudark';

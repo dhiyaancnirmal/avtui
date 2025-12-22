@@ -1,6 +1,6 @@
 // Theme selector modal component
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useKeyboard } from '@opentui/react';
 import { useTheme } from '../hooks/useTheme';
 import type { Theme } from '../types/theme';
@@ -15,6 +15,14 @@ export function ThemeSelector({ onClose, focused = true }: ThemeSelectorProps) {
   const [focusIndex, setFocusIndex] = useState(
     availableThemes.findIndex((t) => t.id === themeId)
   );
+
+  // Live preview: apply theme as user navigates
+  useEffect(() => {
+    const previewTheme = availableThemes[focusIndex];
+    if (previewTheme) {
+      setTheme(previewTheme.id as any);
+    }
+  }, [focusIndex, availableThemes, setTheme]);
 
   useKeyboard(
     (key) => {

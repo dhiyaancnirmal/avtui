@@ -18,7 +18,7 @@ interface ThemeProviderProps {
   initialTheme?: ThemeId;
 }
 
-export function ThemeProvider({ children, initialTheme = 'opencode' }: ThemeProviderProps) {
+export function ThemeProvider({ children, initialTheme = 'ayudark' }: ThemeProviderProps) {
   const [themeId, setThemeId] = useState<ThemeId>(initialTheme);
   const theme = getTheme(themeId);
 
@@ -42,7 +42,7 @@ export function useTheme(): ThemeContextValue {
     // Return default theme if used outside provider
     return {
       theme: defaultTheme,
-      themeId: 'opencode',
+      themeId: 'ayudark',
       setTheme: () => {},
       availableThemes: Object.values(themes),
     };
