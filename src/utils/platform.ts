@@ -1,9 +1,9 @@
 // Platform detection utilities
 
-import { platform, arch } from 'node:os';
-
 export type Platform = 'darwin' | 'linux' | 'win32' | 'unknown';
 export type Architecture = 'x64' | 'arm64' | 'unknown';
+
+import { platform, arch } from 'node:os';
 
 /**
  * Get current platform

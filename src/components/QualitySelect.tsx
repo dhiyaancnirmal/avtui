@@ -1,9 +1,9 @@
 // Quality selector component
 
 import type { SelectOption } from '@opentui/core';
-import { useTheme } from '../hooks/useTheme';
-import { VIDEO_QUALITY, AUDIO_QUALITY } from '../ffmpeg/presets';
 import type { QualityLevel } from '../types/conversion';
+import { VIDEO_QUALITY, AUDIO_QUALITY } from '../ffmpeg/presets';
+import { useTheme } from '../hooks/useTheme';
 
 interface QualitySelectProps {
   value: QualityLevel;
@@ -15,7 +15,6 @@ interface QualitySelectProps {
 export function QualitySelect({
   value,
   onChange,
-  focused = false,
   type = 'video',
 }: QualitySelectProps) {
   const { theme } = useTheme();
@@ -41,7 +40,7 @@ export function QualitySelect({
       <select
         options={options}
         focused={focused}
-        onChange={(index, option) => {
+        onChange={(_index, option) => {
           if (option?.value) {
             onChange(option.value as QualityLevel);
           }

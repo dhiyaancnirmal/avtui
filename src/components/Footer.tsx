@@ -32,8 +32,8 @@ export function Footer({ bindings = defaultBindings }: FooterProps) {
         backgroundColor: theme.colors.surface,
       }}
     >
-      {bindings.map((binding, index) => (
-        <box key={index} style={{ flexDirection: 'row' }}>
+      {bindings.map((binding) => (
+        <box key={binding.key} style={{ flexDirection: 'row' }}>
           <text fg={theme.colors.primary}>
             <strong>{binding.key}</strong>
           </text>
