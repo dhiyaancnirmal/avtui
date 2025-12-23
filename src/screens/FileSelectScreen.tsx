@@ -89,7 +89,7 @@ export function FileSelectScreen({
         bindings={[
           { key: '↑↓', label: 'Navigate' },
           { key: '←', label: 'Back' },
-          { key: '→', label: 'Open' },
+          { key: '→', label: 'Forward' },
           { key: 'Enter', label: 'Select' },
           { key: 'm', label: 'Multi' },
           { key: 'q', label: 'Quit' },
